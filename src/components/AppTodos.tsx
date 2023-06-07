@@ -40,7 +40,9 @@ export const AppTodos = () => {
         value={input}
         onChange={handleChange}
       />
-      <button onClick={handleClick}>Create Todo</button>
+      <button onClick={handleClick} disabled={input === ''}>
+        Create Todo
+      </button>
       <AppTodo todos={todos} onDelete={deleteTodo} onToggle={toggleTodo} />
     </div>
   );
