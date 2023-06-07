@@ -16,6 +16,21 @@ export const AppTodos = () => {
     setInput('');
   };
 
+  const deleteTodo = (todoId: number) => {
+    const updatedTodos = todos.filter((todo) => todo.id !== todoId);
+    setTodos(updatedTodos);
+  };
+
+  const toggleTodo = (todoId: number) => {
+    const updatedTodos = todos.map((todo) => {
+      if (todo.id === todoId) {
+        return { ...todo, isDone: !todo.isDone };
+      }
+      return todo;
+    });
+    setTodos(updatedTodos);
+  };
+
   return (
     <div>
       {' '}
@@ -26,7 +41,7 @@ export const AppTodos = () => {
         onChange={handleChange}
       />
       <button onClick={handleClick}>Create Todo</button>
-      <AppTodo todos={todos} />
+      <AppTodo todos={todos} onDelete={deleteTodo} onToggle={toggleTodo} />
     </div>
   );
 };
