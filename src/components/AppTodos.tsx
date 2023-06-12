@@ -1,48 +1,19 @@
-import { ChangeEvent, useState } from 'react';
-import { Todo } from '../models/Todo';
 import { AppTodo } from './AppTodo';
+import { ITodoProps } from '../models/ITodoProps';
 
-export const AppTodos = () => {
-  const [input, setInput] = useState('');
-  const [todos, setTodos] = useState<Todo[]>([]);
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setInput(e.target.value);
-  };
-
-  const handleClick = () => {
-    const todo = new Todo(input, Math.random(), false);
-    setTodos([...todos, todo]);
-    setInput('');
-  };
+export const AppTodos = (props: ITodoProps) => {
+  const { todos, onDelete, onToggle } = props;
 
   const deleteTodo = (todoId: number) => {
-    const updatedTodos = todos.filter((todo) => todo.id !== todoId);
-    setTodos(updatedTodos);
+    onDelete(todoId);
   };
 
   const toggleTodo = (todoId: number) => {
-    const updatedTodos = todos.map((todo) => {
-      if (todo.id === todoId) {
-        return { ...todo, isDone: !todo.isDone };
-      }
-      return todo;
-    });
-    setTodos(updatedTodos);
+    onToggle(todoId);
   };
 
   return (
     <div>
-      {' '}
-      <input
-        type='text'
-        placeholder='new todo'
-        value={input}
-        onChange={handleChange}
-      />
-      <button onClick={handleClick} disabled={input === ''}>
-        Create Todo
-      </button>
       <AppTodo todos={todos} onDelete={deleteTodo} onToggle={toggleTodo} />
     </div>
   );
