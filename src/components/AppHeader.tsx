@@ -1,9 +1,7 @@
-import { IProps } from '../models/IComponentProps';
-
-export const AppHeader = (props: IProps) => {
+export const AppHeader = () => {
   return (
     <header>
-      <h1>{props.content}</h1>
+      <h1>Lets add some todos...to do</h1>
     </header>
   );
 };

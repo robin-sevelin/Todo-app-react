@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 
 interface IFormProps {
   onAddTodo: (text: string) => void;
@@ -11,21 +11,21 @@ export const AppForm = ({ onAddTodo }: IFormProps) => {
     setInput(e.target.value);
   };
 
-  const handleClick = () => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
     onAddTodo(input);
     setInput('');
   };
   return (
-    <>
+    <form onSubmit={handleSubmit}>
       <input
         type='text'
         placeholder='new todo'
         value={input}
         onChange={handleChange}
       />
-      <button onClick={handleClick} disabled={input === ''}>
-        Create Todo
-      </button>
-    </>
+      <button disabled={input === ''}>Create Todo</button>
+    </form>
   );
 };

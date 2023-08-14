@@ -6,9 +6,9 @@ import { AppMain } from './components/AppMain';
 function App() {
   return (
     <>
-      <AppHeader content='Todo' />
-      <AppMain content='lets add some todos..to do' />
-      <AppFooter content='' />
+      <AppHeader />
+      <AppMain />
+      <AppFooter />
     </>
   );
 }

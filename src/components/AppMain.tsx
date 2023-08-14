@@ -1,10 +1,9 @@
 import { useState } from 'react';
-import { IProps } from '../models/IComponentProps';
 import { AppForm } from './AppForm';
 import { AppTodos } from './AppTodos';
 import { Todo } from '../models/Todo';
 
-export const AppMain = (props: IProps) => {
+export const AppMain = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
 
   const addTodo = (text: string) => {
@@ -27,7 +26,6 @@ export const AppMain = (props: IProps) => {
   };
   return (
     <main>
-      <h2>{props.content}</h2>
       <AppForm onAddTodo={addTodo} />
       <AppTodos todos={todos} onDelete={deleteTodo} onToggle={toggleTodo} />
     </main>

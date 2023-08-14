@@ -1,8 +1,14 @@
-import { ITodoProps } from '../models/ITodoProps';
+import { Todo } from '../models/Todo';
 import '../style/AppTodo.css';
 
-export const AppTodo = (props: ITodoProps) => {
-  const { todos, onDelete, onToggle } = props;
+interface IProps {
+  todo: Todo;
+  onDelete: (id: number) => void;
+  onToggle: (id: number) => void;
+}
+
+export const AppTodo = (props: IProps) => {
+  const { todo, onDelete, onToggle } = props;
 
   const handleDelete = (todoId: number) => {
     onDelete(todoId);
@@ -12,21 +18,11 @@ export const AppTodo = (props: ITodoProps) => {
     onToggle(todoId);
   };
 
-  const html = todos.map((todo) => (
-    <div key={todo.id}>
-      <h3 className={todo.isDone ? 'done' : ''}>{todo.name}</h3>
-      <button onClick={() => handleToggle(todo.id)} className='toggle'>
-        Toggle done
-      </button>
-      <button
-        value={todo.id}
-        className='delete'
-        onClick={() => handleDelete(todo.id)}
-      >
-        Delete
-      </button>
+  return (
+    <div className={todo.isDone ? 'done' : ''}>
+      {todo.name}
+      <button onClick={() => handleToggle(todo.id)}>Toggle done</button>
+      <button onClick={() => handleDelete(todo.id)}>Delete</button>
     </div>
-  ));
-
-  return <>{html}</>;
+  );
 };
