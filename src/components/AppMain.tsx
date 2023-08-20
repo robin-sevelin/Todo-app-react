@@ -1,30 +1,19 @@
-import { useEffect, useState } from 'react';
 import { AppForm } from './AppForm';
 import { AppTodos } from './AppTodos';
 import { Todo } from '../models/Todo';
+import { useLocalStorage } from '../hooks.ts/useLocalStorage';
 
 export const AppMain = () => {
-  const [todos, setTodos] = useState<Todo[]>([]);
-
-  useEffect(() => {
-    const inLocalstorage = localStorage.getItem('todos');
-
-    if (inLocalstorage) {
-      setTodos(JSON.parse(inLocalstorage));
-    }
-  }, []);
+  const [todos, setTodos] = useLocalStorage<Todo[]>('todos', []);
 
   const addTodo = (text: string) => {
     const newTodo = [...todos, new Todo(text, Math.random(), false)];
     setTodos(newTodo);
-
-    localStorage.setItem('todos', JSON.stringify(newTodo));
   };
 
   const deleteTodo = (todoId: number) => {
     const updatedTodos = todos.filter((todo) => todo.id !== todoId);
     setTodos(updatedTodos);
-    localStorage.setItem('todos', JSON.stringify(updatedTodos));
   };
 
   const toggleTodo = (todoId: number) => {
@@ -35,7 +24,6 @@ export const AppMain = () => {
       return todo;
     });
     setTodos(updatedTodos);
-    localStorage.setItem('todos', JSON.stringify(updatedTodos));
   };
   return (
     <main>
