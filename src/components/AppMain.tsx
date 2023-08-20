@@ -1,29 +1,30 @@
 import { AppForm } from './AppForm';
 import { AppTodos } from './AppTodos';
-import { Todo } from '../models/Todo';
 import { useLocalStorage } from '../hooks.ts/useLocalStorage';
+import { useEffect, useReducer } from 'react';
+import { Todo } from '../models/Todo';
+import { todoReducer } from '../hooks.ts/todoReducer';
 
 export const AppMain = () => {
-  const [todos, setTodos] = useLocalStorage<Todo[]>('todos', []);
+  const [storedTodos, setStoredTodos] = useLocalStorage<Todo[]>('todos', []);
+  const [todos, dispatch] = useReducer(todoReducer, storedTodos);
+
+  useEffect(() => {
+    if (todos.length !== 0) {
+      setStoredTodos(todos);
+    }
+  });
 
   const addTodo = (text: string) => {
-    const newTodo = [...todos, new Todo(text, Math.random(), false)];
-    setTodos(newTodo);
+    dispatch({ type: 'add_todo', text });
   };
 
   const deleteTodo = (todoId: number) => {
-    const updatedTodos = todos.filter((todo) => todo.id !== todoId);
-    setTodos(updatedTodos);
+    dispatch({ type: 'delete_todo', todoId });
   };
 
   const toggleTodo = (todoId: number) => {
-    const updatedTodos = todos.map((todo) => {
-      if (todo.id === todoId) {
-        return { ...todo, isDone: !todo.isDone };
-      }
-      return todo;
-    });
-    setTodos(updatedTodos);
+    dispatch({ type: 'toggle_todo', todoId });
   };
   return (
     <main>
