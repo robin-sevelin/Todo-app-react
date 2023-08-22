@@ -25,7 +25,9 @@ export const AppForm = ({ onAddTodo }: IFormProps) => {
         value={input}
         onChange={handleChange}
       />
-      <button disabled={input === ''}>Create Todo</button>
+      <button style={{ backgroundColor: 'lightblue' }} disabled={input === ''}>
+        Create Todo
+      </button>
     </form>
   );
 };

@@ -1,9 +1,9 @@
 import { AppForm } from './AppForm';
 import { AppTodos } from './AppTodos';
-import { useLocalStorage } from '../hooks.ts/useLocalStorage';
+import { useLocalStorage } from '../hooks/useLocalStorage';
 import { useEffect, useReducer } from 'react';
 import { Todo } from '../models/Todo';
-import { todoReducer } from '../hooks.ts/todoReducer';
+import { todoReducer } from '../reducers/todoReducer';
 
 export const AppMain = () => {
   const [storedTodos, setStoredTodos] = useLocalStorage<Todo[]>('todos', []);

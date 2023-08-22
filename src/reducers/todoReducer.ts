@@ -1,9 +1,5 @@
 import { Todo } from '../models/Todo';
-
-type TodoAction =
-  | { type: 'add_todo'; text: string }
-  | { type: 'delete_todo'; todoId: number }
-  | { type: 'toggle_todo'; todoId: number };
+import { TodoAction } from '../types/todoAction';
 
 export const todoReducer = (state: Todo[], action: TodoAction) => {
   switch (action.type) {
