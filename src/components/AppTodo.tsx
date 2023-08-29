@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { Todo } from '../models/Todo';
-import { TodoContext } from '../components/TodoLogic';
+import { TodoContext } from '../context/TodoContext';
 
 interface ITodoPropos {
   todo: Todo;

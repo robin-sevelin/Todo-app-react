@@ -1,31 +1,13 @@
-import { ReactNode, createContext, useReducer } from 'react';
+import { ReactNode, useReducer } from 'react';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import { TodoReducer } from '../reducers/todoReducer';
 import { Todo } from '../models/Todo';
 import { useGetTodos } from '../hooks/useGetTodos';
-
-interface IContext {
-  todos: Todo[];
-  add: (text: string) => void;
-  remove: (id: number) => void;
-  toggle: (id: number) => void;
-}
+import { IContext, TodoContext } from '../context/TodoContext';
 
 interface TodoLogicProps {
   children: ReactNode;
 }
-export const TodoContext = createContext<IContext>({
-  todos: [],
-  add: (text: string) => {
-    console.log(text);
-  },
-  remove: (id: number) => {
-    console.log(id);
-  },
-  toggle: (id: number) => {
-    console.log(id);
-  },
-});
 
 const TodoLogic = ({ children }: TodoLogicProps) => {
   const [storedTodos, setStoredTodos] = useLocalStorage<Todo[]>('todos', []);

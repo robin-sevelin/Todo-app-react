@@ -1,5 +1,5 @@
 import { FormEvent, useContext, useState } from 'react';
-import { TodoContext } from '../components/TodoLogic';
+import { TodoContext } from '../context/TodoContext';
 
 export const AppForm = () => {
   const [input, setInput] = useState('');
