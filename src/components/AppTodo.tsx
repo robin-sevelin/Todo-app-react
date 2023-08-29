@@ -1,20 +1,16 @@
+import { useContext } from 'react';
 import { Todo } from '../models/Todo';
+import { TodoContext } from '../components/TodoLogic';
 
-interface IProps {
+interface ITodoPropos {
   todo: Todo;
-  onDelete: (id: number) => void;
-  onToggle: (id: number) => void;
 }
 
-export const AppTodo = (props: IProps) => {
-  const { todo, onDelete, onToggle } = props;
+export const AppTodo = ({ todo }: ITodoPropos) => {
+  const { toggle, remove } = useContext(TodoContext);
 
-  const handleDelete = (todoId: number) => {
-    onDelete(todoId);
-  };
-
-  const handleToggle = (todoId: number) => {
-    onToggle(todoId);
+  const removeTodo = (id: number) => {
+    remove(id);
   };
 
   return (
@@ -22,13 +18,13 @@ export const AppTodo = (props: IProps) => {
       {todo.name}
       <button
         style={{ backgroundColor: 'lightgreen' }}
-        onClick={() => handleToggle(todo.id)}
+        onClick={() => toggle(todo.id)}
       >
         Toggle done
       </button>
       <button
         style={{ backgroundColor: 'red' }}
-        onClick={() => handleDelete(todo.id)}
+        onClick={() => removeTodo(todo.id)}
       >
         Delete
       </button>

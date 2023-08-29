@@ -1,20 +1,13 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { FormEvent, useContext, useState } from 'react';
+import { TodoContext } from '../components/TodoLogic';
 
-interface IFormProps {
-  onAddTodo: (text: string) => void;
-}
-
-export const AppForm = ({ onAddTodo }: IFormProps) => {
+export const AppForm = () => {
   const [input, setInput] = useState('');
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setInput(e.target.value);
-  };
+  const { add } = useContext(TodoContext);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    onAddTodo(input);
+    add(input);
     setInput('');
   };
   return (
@@ -23,7 +16,7 @@ export const AppForm = ({ onAddTodo }: IFormProps) => {
         type='text'
         placeholder='new todo'
         value={input}
-        onChange={handleChange}
+        onChange={(e) => setInput(e.target.value)}
       />
       <button style={{ backgroundColor: 'lightblue' }} disabled={input === ''}>
         Create Todo
