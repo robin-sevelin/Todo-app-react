@@ -1,31 +1,29 @@
 import { AppForm } from './AppForm';
 import { AppTodos } from './AppTodos';
 import { useLocalStorage } from '../hooks/useLocalStorage';
-import { useEffect, useReducer } from 'react';
+import { useReducer } from 'react';
 import { Todo } from '../models/Todo';
-import { todoReducer } from '../reducers/todoReducer';
+import { TodoReducer } from '../reducers/todoReducer';
+import { useGetTodos } from '../hooks/useGetTodos';
 
 export const AppMain = () => {
   const [storedTodos, setStoredTodos] = useLocalStorage<Todo[]>('todos', []);
-  const [todos, dispatch] = useReducer(todoReducer, storedTodos);
-
-  useEffect(() => {
-    if (todos.length !== 0) {
-      setStoredTodos(todos);
-    }
-  });
+  const [todos, dispatch] = useReducer(TodoReducer, storedTodos);
 
   const addTodo = (text: string) => {
-    dispatch({ type: 'add_todo', text });
+    dispatch({ type: 'ADDED', payload: text });
   };
 
   const deleteTodo = (todoId: number) => {
-    dispatch({ type: 'delete_todo', todoId });
+    dispatch({ type: 'REMOVED', payload: todoId.toString() });
   };
 
   const toggleTodo = (todoId: number) => {
-    dispatch({ type: 'toggle_todo', todoId });
+    dispatch({ type: 'TOGGLED', payload: todoId.toString() });
   };
+
+  useGetTodos(todos, setStoredTodos);
+
   return (
     <main>
       <AppForm onAddTodo={addTodo} />
