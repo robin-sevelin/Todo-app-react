@@ -9,7 +9,7 @@ interface TodoLogicProps {
   children: ReactNode;
 }
 
-const TodoLogic = ({ children }: TodoLogicProps) => {
+export const TodoLogic = ({ children }: TodoLogicProps) => {
   const [storedTodos, setStoredTodos] = useLocalStorage<Todo[]>('todos', []);
   const [todos, dispatch] = useReducer(TodoReducer, storedTodos);
 
@@ -32,5 +32,3 @@ const TodoLogic = ({ children }: TodoLogicProps) => {
     <TodoContext.Provider value={contextValue}>{children}</TodoContext.Provider>
   );
 };
-
-export default TodoLogic;

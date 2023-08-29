@@ -9,10 +9,6 @@ interface ITodoPropos {
 export const AppTodo = ({ todo }: ITodoPropos) => {
   const { toggle, remove } = useContext(TodoContext);
 
-  const removeTodo = (id: number) => {
-    remove(id);
-  };
-
   return (
     <div className={todo.isDone ? 'done' : ''}>
       {todo.name}
@@ -24,7 +20,7 @@ export const AppTodo = ({ todo }: ITodoPropos) => {
       </button>
       <button
         style={{ backgroundColor: 'red' }}
-        onClick={() => removeTodo(todo.id)}
+        onClick={() => remove(todo.id)}
       >
         Delete
       </button>
