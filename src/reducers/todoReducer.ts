@@ -10,25 +10,19 @@ export const TodoReducer = (todos: Todo[], action: ITodoAction) => {
     case 'ADDED': {
       return [...todos, new Todo(action.payload, Math.random(), false)];
     }
-
     case 'REMOVED': {
-      const id = +action.payload;
-      return todos.filter((todo) => todo.id !== id);
+      return todos.filter((todo) => todo.id !== +action.payload);
     }
-
     case 'TOGGLED': {
-      const id = +action.payload;
       return todos.map((todo) => {
-        if (todo.id === id) {
+        if (todo.id === +action.payload) {
           return { ...todo, isDone: !todo.isDone };
         }
         return todo;
       });
     }
-
     default:
       break;
   }
-
   return todos;
 };

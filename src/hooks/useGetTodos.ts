@@ -6,7 +6,7 @@ export const useGetTodos = (
   setStoredTodos: (todos: Todo[]) => void
 ) => {
   useEffect(() => {
-    if (todos.length !== 0) {
+    if (todos) {
       setStoredTodos(todos);
     }
   });

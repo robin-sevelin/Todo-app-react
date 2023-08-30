@@ -1,7 +1,10 @@
+import { Header } from '../styled/Header';
+import { Title } from '../styled/Headings';
+
 export const AppHeader = () => {
   return (
-    <header>
-      <h1>Lets add some todos...to do</h1>
-    </header>
+    <Header>
+      <Title>Lets add some todos...to do</Title>
+    </Header>
   );
 };
