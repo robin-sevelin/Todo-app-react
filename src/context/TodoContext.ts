@@ -1,22 +1,15 @@
-import { createContext } from 'react';
+import { Dispatch, createContext } from 'react';
 import { Todo } from '../models/Todo';
+import { ITodoAction } from '../reducers/TodosReducer';
 
-export interface IContext {
+export interface ITodoContext {
   todos: Todo[];
-  add: (text: string) => void;
-  remove: (id: number) => void;
-  toggle: (id: number) => void;
+  dispatch: Dispatch<ITodoAction>;
 }
 
-export const TodoContext = createContext<IContext>({
+export const TodoContext = createContext<ITodoContext>({
   todos: [],
-  add: (text: string) => {
-    console.log(text);
-  },
-  remove: (id: number) => {
-    console.log(id);
-  },
-  toggle: (id: number) => {
-    console.log(id);
+  dispatch: () => {
+    return;
   },
 });
